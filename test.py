@@ -12,6 +12,7 @@ load_dotenv()
 CMATRIX_DIR = os.getenv('CMATRIX_DIR')
 MODEL_NAME = os.getenv('MODEL_NAME')
 MODEL_WEIGHT_DIR = os.getenv('MODEL_WEIGHT_DIR')
+CMATRIX_REPORT_DIR = os.getenv('CMATRIX_REPORT_DIR')
 
 def TestConfusionMatrix(model, test_dataloader, device):
     model.eval()
@@ -29,7 +30,10 @@ def TestConfusionMatrix(model, test_dataloader, device):
     cm = confusion_matrix(all_true_labels, all_predictions)
     
     report = classification_report(all_true_labels, all_predictions, digits=4)
-    print(report)
+    # Write the report into a file
+    with open(f'{CMATRIX_REPORT_DIR}/{MODEL_NAME}.txt', 'w') as f:
+        f.write(report)
+        
     return cm
 
 def Test():
