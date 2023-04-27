@@ -2,7 +2,7 @@ from train import Train
 from test import Test
 
 def main():
-    Train()
+    # Train()
     Test()
 
 if __name__ == "__main__":

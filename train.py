@@ -67,7 +67,7 @@ def Train():
     plt.ylabel('Loss')
     plt.title('Training and Validation Losses')
     plt.legend()
-    plt.savefig(f'{TRAIN_PROGRESS_DIR}/{MODEL_NAME}.png')
+    plt.savefig(f'{TRAIN_PROGRESS_DIR}/{MODEL_NAME}.png', dpi=300)
     plt.clf()
 
 def Optimize(model, optimizer, loss_fn, batch_x, batch_y):

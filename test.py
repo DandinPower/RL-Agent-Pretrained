@@ -49,5 +49,5 @@ def Test():
     plt.xlabel('Predicted')
     plt.ylabel('True')
     plt.title('Confusion Matrix')
-    plt.savefig(f'{CMATRIX_DIR}/{MODEL_NAME}.png')
+    plt.savefig(f'{CMATRIX_DIR}/{MODEL_NAME}.png', dpi=300)
     plt.clf()
