@@ -1,0 +1,8 @@
+INPUT_SIZE = 3
+HIDDEN_SIZE = 150
+ACTION_SIZE = 2
+
+self.hiddenLayer1 = nn.Linear(INPUT_SIZE, HIDDEN_SIZE)
+self.hiddenLayer2 = nn.Linear(HIDDEN_SIZE, HIDDEN_SIZE)
+self.outputLayer = nn.Linear(HIDDEN_SIZE, ACTION_SIZE)
+self.activation = nn.ReLU()

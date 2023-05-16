@@ -3,7 +3,7 @@ import torch.nn as nn
 from sklearn.metrics import confusion_matrix, classification_report
 import matplotlib.pyplot as plt
 import seaborn as sns
-from model.q_model import QModel
+from model.q_model import QModel, QModel_Deep
 from model.data_loader import GetDataLoaders
 from dotenv import load_dotenv
 import os
@@ -13,6 +13,7 @@ CMATRIX_DIR = os.getenv('CMATRIX_DIR')
 MODEL_NAME = os.getenv('MODEL_NAME')
 MODEL_WEIGHT_DIR = os.getenv('MODEL_WEIGHT_DIR')
 CMATRIX_REPORT_DIR = os.getenv('CMATRIX_REPORT_DIR')
+MODEL_TYPE = os.getenv('MODEL_TYPE')
 
 def TestConfusionMatrix(model, test_dataloader, device):
     model.eval()
@@ -39,7 +40,10 @@ def TestConfusionMatrix(model, test_dataloader, device):
 def Test():
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
     model_path = f'{MODEL_WEIGHT_DIR}/{MODEL_NAME}.pth'
-    model = QModel().to(device)
+    if MODEL_TYPE == 'deep':
+        model = QModel_Deep().to(device)
+    elif MODEL_TYPE == 'normal':
+        model = QModel().to(device)
     model.load_state_dict(torch.load(model_path))
     _, test_dataloader = GetDataLoaders()
     cm = TestConfusionMatrix(model, test_dataloader, device)

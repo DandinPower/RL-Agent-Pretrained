@@ -3,7 +3,7 @@ import torch.nn as nn
 import torch.optim as optim
 import numpy as np
 import matplotlib.pyplot as plt  # Import matplotlib for plotting
-from model.q_model import QModel
+from model.q_model import QModel, QModel_Deep
 from model.data_loader import GetDataLoaders
 from dotenv import load_dotenv
 import os
@@ -17,9 +17,14 @@ MODEL_NAME = os.getenv('MODEL_NAME')
 MODEL_WEIGHT_DIR = os.getenv('MODEL_WEIGHT_DIR')
 TRAIN_PROGRESS_DIR = os.getenv('TRAIN_PROGRESS_DIR')
 
+MODEL_TYPE = os.getenv('MODEL_TYPE')
+
 def Train():
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
-    model = QModel().to(device)
+    if MODEL_TYPE == 'deep':
+        model = QModel_Deep().to(device)
+    elif MODEL_TYPE == 'normal':
+        model = QModel().to(device)
     optimizer = optim.Adam(model.parameters(), lr=LR)
     loss_fn = nn.CrossEntropyLoss()
     train_dataloader, test_dataloader = GetDataLoaders()
